@@ -12,8 +12,8 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("나만의 API")
-                        .description("학생정보 REST API 문서")
+                        .title("석훈이의 과제 API")
+                        .description("과제 및 학생 정보 통합 API 문서")
                         .version("1.0.0"));
     }
 }
