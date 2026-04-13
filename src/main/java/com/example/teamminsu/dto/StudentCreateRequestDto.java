@@ -1,4 +1,4 @@
-package com.example.teamminsu;
+package com.example.teamminsu.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class StudentCreateRequestDto {
-
     private String name;
     private String studentNumber;
     private Integer age;
