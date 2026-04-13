@@ -41,7 +41,7 @@ public class TodoController {
         return todoService.updateTodo(todoTitle, request);
     }
 
-    // DELETE - id 기준 삭제
+    // DELETE - title 기준 삭제
     @DeleteMapping("/{todoTitle}")
     public void deleteTodo(@PathVariable String todoTitle) {
         todoService.deleteTodo(todoTitle);
