@@ -1,4 +1,4 @@
-package com.example.teamminsu;
+package com.example.teamminsu.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -13,7 +13,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("나만의 API")
-                        .description("학생정보 REST API 문서")
+                        .description("TODO REST API 문서")
                         .version("1.0.0"));
     }
 }

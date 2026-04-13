@@ -1,12 +1,11 @@
-package com.example.teamminsu.sojin;
+package com.example.teamminsu.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class TodoRequestDTO {
-    private String id;
+public class TodoCreateRequestDTO {
     private String title;
     private Boolean completed;
     private Integer priority;
