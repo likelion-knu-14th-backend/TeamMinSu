@@ -1,0 +1,20 @@
+package com.example.dto;
+import com.example.entity.Student;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class StudentResponseDto {
+
+    private String name;
+    private String studentNumber;
+    private Integer age;
+    private String major;
+    public StudentResponseDto(Student student) {
+        this.name = student.getName();
+        this.studentNumber = student.getStudentNumber();
+        this.age = student.getAge();
+        this.major = student.getMajor();
+    }
+}
