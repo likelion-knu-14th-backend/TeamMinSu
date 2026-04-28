@@ -1,4 +1,4 @@
-package com.example.teamminsu;
+package com.example.teamminsu.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
