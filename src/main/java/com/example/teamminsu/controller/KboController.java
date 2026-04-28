@@ -1,5 +1,7 @@
-package com.example.teamminsu;
+package com.example.teamminsu.controller;
 
+import com.example.teamminsu.dto.KboCreateRequestDto;
+import com.example.teamminsu.dto.KboResponseDto;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;

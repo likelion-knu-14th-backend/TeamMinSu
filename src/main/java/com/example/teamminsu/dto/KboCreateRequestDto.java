@@ -1,11 +1,11 @@
-package com.example.teamminsu;
+package com.example.teamminsu.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@AllArgsConstructor
-public class KboResponseDto {
+@NoArgsConstructor
+public class KboCreateRequestDto {
 
     private String day;
     private String time;
