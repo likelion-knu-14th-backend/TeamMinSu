@@ -47,4 +47,10 @@ public class StudentController {
     public void deleteStudent(@PathVariable String studentNumber) {
         studentService.deleteStudent(studentNumber);
     }
+
+    // DELETE - 학번 기준 학과 삭제
+    @DeleteMapping("/{studentNumber}/department")
+    public void deleteDepartment(@PathVariable String studentNumber) {
+        studentService.deleteDepartment(studentNumber);
+    }
 }

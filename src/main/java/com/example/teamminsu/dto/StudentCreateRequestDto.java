@@ -9,5 +9,5 @@ public class StudentCreateRequestDto {
     private String name;
     private String studentNumber;
     private Integer age;
-    private String major;
+    private Long departmentId;
 }

@@ -3,10 +3,12 @@ package com.example.teamminsu.service;
 
 import com.example.teamminsu.dto.StudentCreateRequestDto;
 import com.example.teamminsu.dto.StudentResponseDto;
+import com.example.teamminsu.entity.Department;
 import com.example.teamminsu.entity.Student;
 import com.example.teamminsu.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,9 +22,12 @@ public class StudentService {
         Student student = new Student(
                 request.getName(),
                 request.getStudentNumber(),
-                request.getAge(),
-                request.getMajor()
+                request.getAge()
         );
+
+        Department department = new Department();
+        department.setId(request.getDepartmentId());
+        student.setDepartment(department);
 
         Student savedStudent = studentRepository.save(student);
         return new StudentResponseDto(savedStudent);
@@ -49,9 +54,12 @@ public class StudentService {
         student.update(
                 request.getName(),
                 request.getStudentNumber(),
-                request.getAge(),
-                request.getMajor()
+                request.getAge()
         );
+
+        Department department = new Department();
+        department.setId(request.getDepartmentId());
+        student.setDepartment(department);
 
         Student updatedStudent = studentRepository.save(student);
         return new StudentResponseDto(updatedStudent);
@@ -62,5 +70,13 @@ public class StudentService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
 
         studentRepository.delete(student);
+    }
+
+    @Transactional
+    public void deleteDepartment(String studentNumber) {
+        Student student = studentRepository.findByStudentNumber(studentNumber)
+                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+
+        student.setDepartment(null);
     }
 }

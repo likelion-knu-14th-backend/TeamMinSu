@@ -8,13 +8,13 @@ public class StudentResponseDto {
     private String name;
     private String studentNumber;
     private Integer age;
-    private String major;
+    private String department;
 
     public StudentResponseDto(Student student) {
         this.name = student.getName();
         this.studentNumber = student.getStudentNumber();
         this.age = student.getAge();
-        this.major = student.getMajor();
+        this.department = student.getDepartment().getDepartmentName();
     }
 }
 

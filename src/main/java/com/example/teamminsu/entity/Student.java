@@ -20,19 +20,27 @@ public class Student {
 
     private Integer age;
 
-    private String major;
+//    private String major;
 
-    public Student(String name, String studentNumber, Integer age, String major) {
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    public Student(String name, String studentNumber, Integer age) {
         this.name = name;
         this.studentNumber = studentNumber;
         this.age = age;
-        this.major = major;
+//        this.major = major;
     }
 
-    public void update(String name, String studentNumber, Integer age, String major) {
+    public void update(String name, String studentNumber, Integer age) {
         this.name = name;
         this.studentNumber = studentNumber;
         this.age = age;
-        this.major = major;
+//        this.major = major;
+    }
+
+    public void setDepartment(Department department){
+        this.department = department;
     }
 }
