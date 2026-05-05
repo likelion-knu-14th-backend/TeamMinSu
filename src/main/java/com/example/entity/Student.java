@@ -1,16 +1,14 @@
 package com.example.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @NoArgsConstructor
+@Setter
 public class Student {
 
     @Id
@@ -21,6 +19,9 @@ public class Student {
 
     @Column(unique = true, nullable = false)
     private String studentNumber;
+
+    @OneToOne(mappedBy = "student", cascade = CascadeType.ALL)
+    private Profile profile;
 
     private Integer age;
 

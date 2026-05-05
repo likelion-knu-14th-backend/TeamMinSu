@@ -2,6 +2,7 @@ package com.example.service;
 
 import com.example.dto.StudentCreateRequestDto;
 import com.example.dto.StudentResponseDto;
+import com.example.entity.Profile;
 import com.example.entity.Student;
 import com.example.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,13 @@ public class StudentService {
                 request.getAge(),
                 request.getMajor()
         );
+
+        Profile profile = new Profile();
+        profile.setBio(request.getBio());
+        profile.setPhoneNum(request.getPhoneNum());
+        profile.setStudent(student);
+
+        student.setProfile(profile);
 
         Student savedStudent = studentRepository.save(student);
         return new StudentResponseDto(savedStudent);
