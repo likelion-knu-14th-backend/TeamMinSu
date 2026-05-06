@@ -21,4 +21,10 @@ public class Profile {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id")
     private Student student;
+
+    public Profile(String bio, String phoneNum, Student student) {
+        this.bio = bio;
+        this.phoneNum = phoneNum;
+        this.student = student;
+    }
 }
