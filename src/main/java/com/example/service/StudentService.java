@@ -4,6 +4,8 @@ import com.example.dto.StudentCreateRequestDto;
 import com.example.dto.StudentResponseDto;
 import com.example.entity.Profile;
 import com.example.entity.Student;
+import com.example.exception.StudentNotFoundException;
+import jakarta.transaction.Transactional;
 import com.example.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
+    @Transactional
     public StudentResponseDto createStudent(StudentCreateRequestDto request) {
         Student student = new Student(
                 request.getName(),
@@ -44,14 +47,15 @@ public class StudentService {
 
     public StudentResponseDto getStudent(String studentNumber) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
 
         return new StudentResponseDto(student);
     }
 
+    @Transactional
     public StudentResponseDto updateStudent(String studentNumber, StudentCreateRequestDto request) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
 
         student.update(
                 request.getName(),
@@ -60,13 +64,20 @@ public class StudentService {
                 request.getMajor()
         );
 
+        Profile profile = new Profile();
+        profile.setBio(request.getBio());
+        profile.setPhoneNum(request.getPhoneNum());
+        profile.setStudent(student);
+
+        student.setProfile(profile);
+
         Student updatedStudent = studentRepository.save(student);
         return new StudentResponseDto(updatedStudent);
     }
 
     public void deleteStudent(String studentNumber) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
 
         studentRepository.delete(student);
     }
