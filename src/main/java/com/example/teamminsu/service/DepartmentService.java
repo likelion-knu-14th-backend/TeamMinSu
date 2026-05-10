@@ -5,6 +5,7 @@ import com.example.teamminsu.dto.DepartmentResponseDTO;
 import com.example.teamminsu.dto.StudentResponseDto;
 import com.example.teamminsu.entity.Department;
 import com.example.teamminsu.entity.Student;
+import com.example.teamminsu.exception.DepartmentNotFoundException;
 import com.example.teamminsu.repository.DepartmentRepository;
 import com.example.teamminsu.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +23,7 @@ public class DepartmentService {
     public List<StudentResponseDto> getStudentByDepartment(Long departmentId){
 
         if (!departmentRepository.existsById(departmentId)) {
-            throw new IllegalArgumentException("학과가 존재하지 않습니다.");
+            throw new DepartmentNotFoundException();
         }
 
         List<Student> students = studentRepository.findByDepartmentId(departmentId);

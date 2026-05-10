@@ -4,6 +4,7 @@ import com.example.teamminsu.dto.DepartmentRequestDTO;
 import com.example.teamminsu.dto.DepartmentResponseDTO;
 import com.example.teamminsu.dto.StudentResponseDto;
 import com.example.teamminsu.service.DepartmentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +22,7 @@ public class DepartmentController {
     }
 
     @PostMapping
-    public DepartmentResponseDTO createDepartment(@RequestBody DepartmentRequestDTO request){
+    public DepartmentResponseDTO createDepartment(@Valid @RequestBody DepartmentRequestDTO request){
         return departmentService.createDepartment(request);
     }
 

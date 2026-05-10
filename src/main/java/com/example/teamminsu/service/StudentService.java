@@ -5,6 +5,9 @@ import com.example.teamminsu.dto.StudentCreateRequestDto;
 import com.example.teamminsu.dto.StudentResponseDto;
 import com.example.teamminsu.entity.Department;
 import com.example.teamminsu.entity.Student;
+import com.example.teamminsu.exception.DepartmentNotFoundException;
+import com.example.teamminsu.exception.StudentNotFoundException;
+import com.example.teamminsu.repository.DepartmentRepository;
 import com.example.teamminsu.repository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +20,9 @@ import java.util.List;
 public class StudentService {
 
     private final StudentRepository studentRepository;
+    private final DepartmentRepository departmentRepository;
 
+    @Transactional
     public StudentResponseDto createStudent(StudentCreateRequestDto request) {
         Student student = new Student(
                 request.getName(),
@@ -42,14 +47,18 @@ public class StudentService {
 
     public StudentResponseDto getStudent(String studentNumber) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
 
         return new StudentResponseDto(student);
     }
 
+    @Transactional
     public StudentResponseDto updateStudent(String studentNumber, StudentCreateRequestDto request) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
+
+        Department department = departmentRepository.findById(request.getDepartmentId())
+                .orElseThrow(DepartmentNotFoundException::new);
 
         student.update(
                 request.getName(),
@@ -57,8 +66,6 @@ public class StudentService {
                 request.getAge()
         );
 
-        Department department = new Department();
-        department.setId(request.getDepartmentId());
         student.setDepartment(department);
 
         Student updatedStudent = studentRepository.save(student);
@@ -67,7 +74,7 @@ public class StudentService {
 
     public void deleteStudent(String studentNumber) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
 
         studentRepository.delete(student);
     }
@@ -75,7 +82,7 @@ public class StudentService {
     @Transactional
     public void deleteDepartment(String studentNumber) {
         Student student = studentRepository.findByStudentNumber(studentNumber)
-                .orElseThrow(() -> new IllegalArgumentException("해당 학생이 존재하지 않습니다."));
+                .orElseThrow(StudentNotFoundException::new);
 
         student.setDepartment(null);
     }
