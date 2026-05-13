@@ -2,6 +2,7 @@ package com.example.Controller;
 
 import com.example.dto.HobbyRequestDto;
 import com.example.service.HobbyService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +15,7 @@ public class HobbyController {
     @PostMapping("/{studentNumber}")
     public void addHobby(
             @PathVariable("studentNumber") String studentNumber,
-            @RequestBody HobbyRequestDto dto) {
+            @Valid @RequestBody HobbyRequestDto dto) {
         hobbyService.addHobby(studentNumber, dto);
     }
 
