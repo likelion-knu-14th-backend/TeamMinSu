@@ -3,6 +3,7 @@ package com.example.teamminsu.controller;
 import com.example.teamminsu.dto.GradeCreateRequestDto;
 import com.example.teamminsu.dto.GradeResponseDto;
 import com.example.teamminsu.service.GradeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class GradeController {
     @PostMapping("/{studentNumber}")
     public void uploadStudentGrade(
             @PathVariable String studentNumber,
-            @RequestBody List<GradeCreateRequestDto> gradeRequestDtoList
+            @Valid @RequestBody List<@Valid GradeCreateRequestDto> gradeRequestDtoList
     ) {
         gradeService.uploadStudentGrade(studentNumber, gradeRequestDtoList);
     }
