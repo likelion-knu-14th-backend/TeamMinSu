@@ -39,4 +39,8 @@ public class Student {
         this.age = age;
         this.major = major;
     }
+
+    public void setProfile(Profile profile) {
+        
+    }
 }
