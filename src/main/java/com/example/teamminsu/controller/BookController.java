@@ -3,6 +3,7 @@ package com.example.teamminsu.controller;
 import com.example.teamminsu.dto.BookRequestDto;
 import com.example.teamminsu.dto.BookResponseDto;
 import com.example.teamminsu.service.BookService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +18,7 @@ public class BookController {
 
     // 도서 등록
     @PostMapping
-    public BookResponseDto createBook(@RequestBody BookRequestDto request) {
+    public BookResponseDto createBook(@Valid @RequestBody BookRequestDto request) {
         return bookService.createBook(request);
     }
 
@@ -35,7 +36,7 @@ public class BookController {
 
     // 도서 수정
     @PutMapping("/{id}")
-    public BookResponseDto updateBook(@PathVariable Long id, @RequestBody BookRequestDto request) {
+    public BookResponseDto updateBook(@PathVariable Long id, @Valid @RequestBody BookRequestDto request) {
         return bookService.updateBook(id, request);
     }
 

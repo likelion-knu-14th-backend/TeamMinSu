@@ -3,7 +3,9 @@ package com.example.teamminsu.service;
 import com.example.teamminsu.dto.BookRequestDto;
 import com.example.teamminsu.dto.BookResponseDto;
 import com.example.teamminsu.entity.Book;
+import com.example.teamminsu.exception.BookNotFoundException;
 import com.example.teamminsu.repository.BookRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,7 @@ public class BookService {
 
     private final BookRepository bookRepository;
 
+    @Transactional
     public BookResponseDto createBook(BookRequestDto request) {
         Book book = new Book(request.getTitle(), request.getAuthor(), request.getPrice());
         return new BookResponseDto(bookRepository.save(book));
@@ -29,20 +32,21 @@ public class BookService {
 
     public BookResponseDto getBook(Long id) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 도서가 존재하지 않습니다."));
+                .orElseThrow(BookNotFoundException::new);
         return new BookResponseDto(book);
     }
 
+    @Transactional
     public BookResponseDto updateBook(Long id, BookRequestDto request) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 도서가 존재하지 않습니다."));
+                .orElseThrow(BookNotFoundException::new);
         book.update(request.getTitle(), request.getAuthor(), request.getPrice());
         return new BookResponseDto(bookRepository.save(book));
     }
 
     public void deleteBook(Long id) {
         Book book = bookRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 도서가 존재하지 않습니다."));
+                .orElseThrow(BookNotFoundException::new);
         bookRepository.delete(book);
     }
 }
