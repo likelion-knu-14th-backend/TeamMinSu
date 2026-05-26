@@ -1,14 +1,13 @@
 package com.example.teamminsu.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Column;
+import com.example.teamminsu.auth.enums.Role;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Setter
 @Getter
 @NoArgsConstructor
 public class Student {
@@ -43,4 +42,13 @@ public class Student {
     public void setProfile(Profile profile) {
         
     }
+
+    @Column(unique = true, nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
